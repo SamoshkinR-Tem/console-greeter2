@@ -8,15 +8,21 @@ import java.util.ResourceBundle;
 
 public class GreeterTest extends TestCase {
 
-    public void testGetMsgFromRes() throws Exception {
-        String greetingText;
-        ResourceBundle bundle = ResourceBundle.getBundle(
-                "bundle", new Locale("en","US"), new MyBundleControl());
+    public void testGetEnGreetingFromRes() throws Exception {
+        Locale.setDefault(new Locale("en", "US"));
+        ResourceBundle bundle = ResourceBundle.getBundle("greetings");
 
-        greetingText = bundle.getString("good_morning");
-
-        assertEquals("Good morning, World!", greetingText);
+        assertEquals("Good morning, World!", bundle.getString("good_morning"));
     }
+
+    public void testGetRuGreetingFromRes() throws Exception {
+        Locale.setDefault(new Locale("ru", "UA"));
+        ResourceBundle bundle = ResourceBundle.getBundle("greetings", new MyBundleControl());
+
+        assertEquals("Доброе утро, Мир!", bundle.getString("good_morning"));
+    }
+
+
 
     public void testMsgShouldBePrinted() throws Exception {
         assertTrue(true);

@@ -23,7 +23,7 @@ public class MyBundleControl extends ResourceBundle.Control {
             final String resourceName = toResourceName(bundleName, "properties");
             final ClassLoader classLoader = loader;
             final boolean reloadFlag = reload;
-            InputStream stream = null;
+            InputStream stream;
             try {
                 stream = AccessController.doPrivileged(
                         (PrivilegedExceptionAction<InputStream>) () -> {
@@ -52,11 +52,6 @@ public class MyBundleControl extends ResourceBundle.Control {
                 try {
                     reader = new InputStreamReader(stream, "UTF-8");
                     bundle = new PropertyResourceBundle(reader);
-                    Enumeration<String> e = bundle.getKeys();
-//                    while (e.hasMoreElements()){
-//                        String key = e.nextElement();
-//                        logger.debug("newBundle() Key:"+ key+" value:"+bundle.getString(key));
-//                    }
                 } finally {
                     stream.close();
                     if (reader != null) {
